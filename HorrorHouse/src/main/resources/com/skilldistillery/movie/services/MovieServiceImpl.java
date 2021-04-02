@@ -19,8 +19,7 @@ public class MovieServiceImpl implements MovieService {
 	
 	@Override
 	public List<Movie> allMovies() {
-		// TODO Auto-generated method stub
-		return null;
+		return repo.findAll();
 	}
 
 	@Override
