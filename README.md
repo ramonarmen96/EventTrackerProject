@@ -7,7 +7,7 @@ the best-selling video game console of all time, The Playstation 2. This
 tracker is capable of tracking the PS2 games the user wants to play. The
 user has a list of PS2 games and can remove them from the list once they
 have completed the game. The user can view the full list of games, add,
-updated, and remove any game they desire in order to keep track of their
+update, and remove any game they desire in order to keep track of their
 progress.
 
 ### How to run
