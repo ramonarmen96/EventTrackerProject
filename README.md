@@ -1,6 +1,6 @@
 # EventTrackerProject
 
-#Overview
+### Overview
 
 This Application is designed for gamers who want to get back into playing
 the best-selling video game console of all time, The Playstation 2. This
@@ -10,11 +10,11 @@ have completed the game. The user can view the full list of games, add,
 updated, and remove any game they desire in order to keep track of their
 progress.
 
-#How to run
+### How to run
 This Application does not have a front end at the moment, but it can be run
 as a spring boot application, and functions in Postman.
 
-#REST API
+### REST API
 
 | HTTP Method | Resource URI | Request Body | Returns |
 |-------------|--------------|--------------|---------|
@@ -24,7 +24,7 @@ as a spring boot application, and functions in Postman.
 |PUT|`api/games/{id}`|Game with adjusted fields|||
 |DELETE|`api/games/{id}`|||
 
-#Goals
+### Goals
 I would like to be able to expand this application and add more functions for example:
 * maintain a list of games that have been completed
 * cover art for each game and the option to add cover art to added games
