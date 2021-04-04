@@ -49,7 +49,7 @@ class GameTest {
 	@Test
 	void test() {
 		assertNotNull(game);
-		assertEquals("The Conjuring", game.getTitle());
+		assertEquals("Jak and Daxter The Precursor Legacy", game.getTitle());
 	}
 
 }
