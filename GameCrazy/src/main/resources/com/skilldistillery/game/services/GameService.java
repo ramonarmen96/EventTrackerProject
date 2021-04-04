@@ -17,7 +17,7 @@ public interface GameService {
 
 	Game editGame(Game game, int id);
 	
-	boolean deleteGame();
+	boolean removeGame(int id);
 	
 	
 	
