@@ -37,14 +37,19 @@ public class GameServiceImpl implements GameService {
 	@Override
 	public Game editGame(Game game, int id) {
 		Game editedGame = repo.findById(id).get();
-		editedGame.setDescription(game.getDescription());
-		editedGame.setMainCharacter(game.getMainCharacter());
-		editedGame.setPlayers(game.getPlayers());
-		editedGame.setRating(game.getRating());
-		editedGame.setTitle(game.getTitle());
-		editedGame.setReleaseYear(game.getReleaseYear());
-		return repo.saveAndFlush(editedGame);
+//		Optional<Game> gameOp = repo.findById(id);
 
+		if (editedGame.getTitle() != null) {
+			editedGame.setDescription(game.getDescription());
+			editedGame.setMainCharacter(game.getMainCharacter());
+			editedGame.setPlayers(game.getPlayers());
+			editedGame.setRating(game.getRating());
+			editedGame.setTitle(game.getTitle());
+			editedGame.setReleaseYear(game.getReleaseYear());
+			return repo.saveAndFlush(editedGame);
+		} else {
+			return null;
+		}
 	}
 
 	@Override

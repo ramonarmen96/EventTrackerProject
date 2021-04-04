@@ -18,7 +18,6 @@ public interface GameService {
 	Game editGame(Game game, int id);
 	
 	boolean removeGame(int id);
-	
-	
+
 	
 }

@@ -37,8 +37,19 @@ public class GameController {
 	}
 
 	@GetMapping("games/{id}")
-	public Game show(@PathVariable int id) {
-		return gameSvc.showGame(id).get();
+	public Game show(@PathVariable int id, HttpServletRequest req, HttpServletResponse resp) {
+		Game game = gameSvc.showGame(id).get();
+		if (game != null) {
+			StringBuffer reqLocation = req.getRequestURL();
+			String location = reqLocation.append("/games/").append(id).toString();
+			resp.setStatus(202);
+			resp.setHeader("location", location);
+			return game;
+		} 
+			resp.setStatus(404);
+			return null;
+		
+
 	}
 
 	@PostMapping("games")
@@ -55,9 +66,10 @@ public class GameController {
 		}
 		return game;
 	}
+
 	@PutMapping("games/{id}")
 	public Game replaceGame(@PathVariable int id, @RequestBody Game game, HttpServletRequest req,
-			HttpServletResponse resp){		    
+			HttpServletResponse resp) {
 		game = gameSvc.editGame(game, id);
 		if (game != null) {
 			resp.setStatus(201);
@@ -68,18 +80,16 @@ public class GameController {
 			resp.setStatus(404);
 			game = null;
 		}
-		return game;		
+		return game;
 	}
+
 	@DeleteMapping("games/{id}")
-	public void deleteGame(
-			@PathVariable int id,
-			HttpServletResponse resp
-	) {
+	public void deleteGame(@PathVariable int id, HttpServletResponse resp) {
 		if (gameSvc.removeGame(id)) {
 			resp.setStatus(204);
-		}
-		else {
+		} else {
 			resp.setStatus(404);
+
 		}
 	}
 }
