@@ -31,6 +31,7 @@ window.addEventListener('load', function(e) {
           let game = JSON.parse(xhr.responseText);
           console.log(game.title);
           displayGame(game);
+
         } else {
           console.error(`Game Id ${gameId} not found`);
           // * On failure, or if no response text was received, put "GAME not found"
@@ -42,6 +43,13 @@ window.addEventListener('load', function(e) {
     xhr.send();
     /// 1
 }
+
+function changeForm(){
+  let formName = document.getElementById('formName');
+  formName.innerHTML = 'Add or Edit Game'
+  // console.log(formName);
+
+};
 
 function displayError(msg) {
   var dataDiv = document.getElementById('gameData');
@@ -70,6 +78,7 @@ function displayGame(game) {
   li = document.createElement('li');
   li.textContent = game.releaseYear;
   ul.appendChild(li);
+  changeForm();
   // TODO: call a getActors(GAME.id) function to use XHR, pass actors array to displayActors(actors)
   // getActors(game.id);
 }
@@ -98,6 +107,55 @@ function postGame(game) {
         displayGame(newGame);
       } else {
         displayError('Error creating game: ' + xhr.status);
+      }
+    }
+  };
+  xhr.setRequestHeader("Content-type", "application/json");
+  xhr.send(JSON.stringify(game));
+}
+function editGame(evt) {
+  evt.preventDefault();
+  console.log('Updating Game');
+  let id = document.gameEditForm.gameId
+  let form = document.gameEditForm;
+  let game = {
+    rating: form.rating.value
+  };
+  game.title = form.title.value;
+  game.description = form.description.value;
+  game.releaseYear = form.releaseYear.value;
+  putGame(game);
+}
+function putGame(game) {
+console.log('Replacing game');
+console.log(game);
+let xhr = new XMLHttpRequest();
+xhr.open('PUT', 'api/games/' + gameId);
+xhr.onreadystatechange = function() {
+  if (xhr.readyState === 4) {
+    if (xhr.status === 201 || xhr.status === 200) {
+      let editedGame = JSON.parse(xhr.responseText);
+      displayGame(editedGame);
+    } else {
+      displayError('Error Replacing game: ' + xhr.status);
+    }
+  }
+};
+xhr.setRequestHeader("Content-type", "application/json");
+xhr.send(JSON.stringify(game));
+}
+function deleteGame(game){
+  console.log('Deleting Game');
+  console.log(game);
+  let xhr = new XMLHttpRequest();
+  xhr.open('DELETE', 'api/games/' + gameId);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 201 || xhr.status === 200) {
+        let editedGame = JSON.parse(xhr.responseText);
+        displayGame(editedGame);
+      } else {
+        displayError('Error Deleting game: ' + xhr.status);
       }
     }
   };
