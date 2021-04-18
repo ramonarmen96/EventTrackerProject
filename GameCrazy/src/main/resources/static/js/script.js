@@ -13,6 +13,8 @@ window.addEventListener('load', function(e) {
       }
     });
     document.newGameForm.addGame.addEventListener('click', createGame);
+    document.gameForm.delete.addEventListener('click', deleteGame);
+
   }
 
   function getGame(gameId) {
@@ -65,7 +67,7 @@ function displayGame(game) {
   var dataDiv = document.getElementById('gameData');
   dataDiv.textContent = '';
   let element = document.createElement('h1');
-  element.textContent = game.title;
+  element.textContent = game.id + ": " + game.title;
   dataDiv.appendChild(element);
   element = document.createElement('blockquote');
   element.textContent = game.description;
@@ -151,9 +153,9 @@ function deleteGame(game){
   xhr.open('DELETE', 'api/games/' + gameId);
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4) {
-      if (xhr.status === 201 || xhr.status === 200) {
+      if (xhr.status === 204 || xhr.status === 200) {
         let editedGame = JSON.parse(xhr.responseText);
-        displayGame(editedGame);
+        console.log("Deleted Game");
       } else {
         displayError('Error Deleting game: ' + xhr.status);
       }
