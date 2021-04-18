@@ -26,4 +26,48 @@ private http: HttpClient
     )
 
   }
-}
+  create(game: Game) {
+    return this.http.post<Game>(this.url, game).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('KABOOM');
+      })
+    );
+  }
+  update(editedGame: Game) {
+     return this.http.put<Game>(`${this.url}/${editedGame.id}`, editedGame)
+     .pipe( catchError((err:any) => {
+      console.log(err);
+      return throwError('Error updating todo in service');
+     })
+     );
+    }
+    // private getHttpOptions(): object {
+    //   const credentials = this.auth.getCredentials();
+
+    //   const httpOptions = {
+    //     headers: new HttpHeaders({
+    //       Authorization: `Basic ${credentials}`,
+    //       'X-Requested-With': 'XMLHttpRequest'
+    //     })
+    //   };
+    //   return httpOptions
+    // }
+    destroy(id: number) {
+      return this.http.delete<Game>(`${this.url}/${id}`)
+      .pipe(
+        catchError((err:any) => {
+           console.log(err);
+           return throwError('Error deleting todo in service');
+        }));
+   }
+   show(id): Observable<Game>{
+    return this.http.get<Game>(this.url)
+    .pipe(
+      catchError((err:any) => {
+         console.log(err);
+         return throwError('Error getting games');
+      })
+     );
+ }
+  }

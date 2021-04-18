@@ -1,6 +1,48 @@
 <h1>Game Crazy</h1>
-<ul>
-  <li *ngFor="let game of games">
-    {{game.title}}
-  </li>
-</ul>
+<br>
+<form *ngIf='!selected'>
+<!-- <input type="text" name='id' placeholder="" [(ngModel)]='newGame.id'> -->
+<input type="text" name='title' placeholder="Title" [(ngModel)]='newGame.title'>
+<input type="text" name='rating' placeholder="Rating" [(ngModel)]='newGame.rating'>
+<input type="text" name='players' placeholder="Players" [(ngModel)]='newGame.players'>
+<!-- <input type="text" name='img' [(ngModel)]='newGame.img'> -->
+<input type="text" name='description' placeholder="description" [(ngModel)]='newGame.description'>
+<button (click)='addGame()'>Add Game</button>
+</form>
+  <table *ngIf='!selected'>
+    <thead>
+      <tr>
+        <td>Id</td>
+        <td>title</td>
+        <td>Cover</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let game of games">
+        <td (click)='setSelected(game)'>{{game.id}}</td>
+        <td (click)='setSelected(game)'>{{game.title}}</td>
+        <td (click)='setSelected(game)'>
+          <!-- <img [src]="game.img"/> -->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf='selected'>
+    <!-- <p>{{selected.id}}</p> -->
+    <h2>{{selected.title}}</h2>
+    <h3>Rated: {{selected.rating}}</h3>
+    <p>{{selected.img}}</p>
+    <p>{{selected.description}}</p>
+    <button (click)='setEditGame()' *ngIf="!editGame">Edit</button>
+    <button (click)='selected = null' *ngIf="!editGame">Back</button>
+    <br>
+    <button (click)='deleteGame(game.id)'>DELETE</button>
+  </div>
+  <div *ngIf='editGame'>
+    Title: <input type="text" [(ngModel)]='editGame.title'>
+    Rating: <input type="text" [(ngModel)]='editGame.rating'>
+    Description: <input type="text" [(ngModel)]='editGame.description'>
+    <button (click)='updateGame(editGame)'>Save</button>
+    <button (click)='editGame = null' *ngIf="editGame">Cancel</button>
+    <button (click)='editGame = null' *ngIf="editGame">Done</button>
+  </div>
