@@ -54,12 +54,13 @@ private http: HttpClient
     //   return httpOptions
     // }
     destroy(id: number) {
-      return this.http.delete<Game>(`${this.url}/${id}`)
-      .pipe(
+      return this.http.delete<Game>(`${this.url}/${id}`).pipe
+      (
         catchError((err:any) => {
            console.log(err);
-           return throwError('Error deleting todo in service');
+           return throwError('Error deleting game in service');
         }));
+
    }
    show(id): Observable<Game>{
     return this.http.get<Game>(this.url)

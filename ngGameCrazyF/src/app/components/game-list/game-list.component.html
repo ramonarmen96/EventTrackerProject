@@ -27,6 +27,7 @@
       </tr>
     </tbody>
   </table>
+  <form>
   <div *ngIf='selected'>
     <!-- <p>{{selected.id}}</p> -->
     <h2>{{selected.title}}</h2>
@@ -36,7 +37,8 @@
     <button (click)='setEditGame()' *ngIf="!editGame">Edit</button>
     <button (click)='selected = null' *ngIf="!editGame">Back</button>
     <br>
-    <button (click)='deleteGame(game.id)'>DELETE</button>
+    <button (click)="deleteGame(selected.id)">Delete</button>
+
   </div>
   <div *ngIf='editGame'>
     Title: <input type="text" [(ngModel)]='editGame.title'>
@@ -46,3 +48,4 @@
     <button (click)='editGame = null' *ngIf="editGame">Cancel</button>
     <button (click)='editGame = null' *ngIf="editGame">Done</button>
   </div>
+  </form>

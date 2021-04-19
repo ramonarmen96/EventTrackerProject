@@ -10,7 +10,6 @@ import { GameService } from 'src/app/services/game.service';
 export class GameListComponent implements OnInit {
 
   selected = null;
-  game
   games: Game[] = [];
   newGame: Game = new Game();
   editGame: Game = null;
@@ -21,22 +20,22 @@ export class GameListComponent implements OnInit {
     private router: Router
   ) { }
   ngOnInit(): void {
-    this.loadGames();
-    // let id = this.route.snapshot.paramMap.get('id');
-    // if(id){
-    //   this.gameSvc.show(id).subscribe(
-    //     todo => {
-    //       this.selected = todo;
-    //     },
-    //     fail =>{
-    //       console.error("TodoListComponent.ngOnInIt(): todo retrieve failed");
-    //       console.error(fail);
-    //       this.router.navigateByUrl('notFound')
+    // this.loadGames();
+    let id = this.route.snapshot.paramMap.get('id');
+    if(id){
+      this.gameSvc.show(id).subscribe(
+        todo => {
+          this.selected = todo;
+        },
+        fail =>{
+          console.error("TodoListComponent.ngOnInIt(): todo retrieve failed");
+          console.error(fail);
+          this.router.navigateByUrl('notFound')
 
-    //     }
-    //   )
-    // }
-    // this.reload();
+        }
+      )
+    }
+    this.reload();
   }
 loadGames(): void {
   this.gameSvc.index().subscribe(
@@ -94,8 +93,8 @@ reload() {
 }
 deleteGame(id: number): void {
   // if (confirm('You sure about this?')) {
-    // this.todos = this.todoService.index();
-    // }
+  //   this.games = this.gameSvc.index();
+  //   }
     this.gameSvc.destroy(id).subscribe(
       data =>{
         this.reload();
